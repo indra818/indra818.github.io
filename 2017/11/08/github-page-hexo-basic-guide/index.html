@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Github Pages와 Hexo를 이용한 블로그 만들기 | DEVPOOL</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="github,hexo,blogging" />
+    
+    <meta name="description" content="첫 포스팅으로 Github와 Hexo를 이용한 블로그 개설을 기념하여 블로그 개설시 삽질한 내용을 공유한다. 필자는 naver blog를 시작으로 tistory, thoth, wordpress 등 웬만큼 유명한 블로그 플랫폼을 지식 저장소 개념으로 이용해 왔으나 항상 포스팅 및 글 편집에 있어서 불만족스러웠다.  markdown을 지원하는 서비스 형 블로">
+<meta name="keywords" content="github,hexo,blogging">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Github Pages와 Hexo를 이용한 블로그 만들기">
+<meta property="og:url" content="https://indra818.github.io/2017/11/08/github-page-hexo-basic-guide/index.html">
+<meta property="og:site_name" content="DEVPOOL">
+<meta property="og:description" content="첫 포스팅으로 Github와 Hexo를 이용한 블로그 개설을 기념하여 블로그 개설시 삽질한 내용을 공유한다. 필자는 naver blog를 시작으로 tistory, thoth, wordpress 등 웬만큼 유명한 블로그 플랫폼을 지식 저장소 개념으로 이용해 왔으나 항상 포스팅 및 글 편집에 있어서 불만족스러웠다.  markdown을 지원하는 서비스 형 블로">
+<meta property="og:locale" content="ko">
+<meta property="og:image" content="https://indra818.github.io/2017/11/08/github-page-hexo-basic-guide/thumbnail.png">
+<meta property="og:updated_time" content="2018-08-07T05:40:56.332Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Github Pages와 Hexo를 이용한 블로그 만들기">
+<meta name="twitter:description" content="첫 포스팅으로 Github와 Hexo를 이용한 블로그 개설을 기념하여 블로그 개설시 삽질한 내용을 공유한다. 필자는 naver blog를 시작으로 tistory, thoth, wordpress 등 웬만큼 유명한 블로그 플랫폼을 지식 저장소 개념으로 이용해 왔으나 항상 포스팅 및 글 편집에 있어서 불만족스러웠다.  markdown을 지원하는 서비스 형 블로">
+<meta name="twitter:image" content="https://indra818.github.io/2017/11/08/github-page-hexo-basic-guide/thumbnail.png">
+    
+
+    
+
+    
+        <link rel="icon" href="/favicon.png" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.0.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">All about software development.</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="/">홈</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevOps/">DevOps</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevOps/Docker/">Docker</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Web/">Web</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Web/Hexo/">Hexo</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Web/Spring/">Spring</a></li></ul></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <a class="main-nav-list-link" href="https://www.linkedin.com/in/indra818">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="검색" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '포스트',
+            PAGES: 'Pages',
+            CATEGORIES: '카테고리',
+            TAGS: '태그',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Web/">Web</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/Web/Hexo/">Hexo</a>
+    </h1>
+</div>
+                        <div class="main-body-content">
+                            <article id="post-github-page-hexo-basic-guide" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Github Pages와 Hexo를 이용한 블로그 만들기
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2017/11/08/github-page-hexo-basic-guide/" class="article-date">
+            <time datetime="2017-11-08T06:15:06.000Z" itemprop="datePublished">2017-11-08</time>
+        </a>
+    </div>
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/blogging/">blogging</a>, <a class="tag-link" href="/tags/github/">github</a>, <a class="tag-link" href="/tags/hexo/">hexo</a>
+    </div>
+
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <img src="/2017/11/08/github-page-hexo-basic-guide/thumbnail.png" title="test">
+<p>첫 포스팅으로 Github와 Hexo를 이용한 블로그 개설을 기념하여 블로그 개설시 삽질한 내용을 공유한다.</p>
+<p>필자는 naver blog를 시작으로 tistory, thoth, wordpress 등 웬만큼 유명한 블로그 플랫폼을 지식 저장소 개념으로 이용해 왔으나 항상 포스팅 및 글 편집에 있어서 불만족스러웠다. </p>
+<p>markdown을 지원하는 서비스 형 블로그들이 등장하였으나 소수에다 언제 서비스가 종료될 지 모르고 설치형의 경우 정보전달 보다는 개인 기록물 정도로 블로깅을 하는 필자로서는 서버 호스팅 비용이 부담스럽기에 이 두가지 단점을 모두 해결할 수 있는 Github Pages + Hexo 를 선택하게 되었다.</p>
+<p>블로그를 개설하고 보니 그렇게 어려운 부분은 없었으나 뭐가 됐든 항상 초입은 삽질이 필수였으므로 블로그 개설 시 참고한 자료와 내용을 첫 포스팅으로 기록한다.</p>
+<h2 id="Github-Page-개설"><a href="#Github-Page-개설" class="headerlink" title="Github Page 개설"></a>Github Page 개설</h2><p>Github Page 개설은 Github Pages 홈페이지에 아주 친절하게 설정 과정을 설명하고 있기에 본 포스팅에서는 생략하고 링크로 대신한다.</p>
+<ul>
+<li><a href="https://pages.github.com" target="_blank" rel="external">https://pages.github.com</a></li>
+</ul>
+<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><p>Hexo는 <a href="https://jekyllrb-ko.github.io/" target="_blank" rel="external">Jekyll</a>와 함께 대표적으로 정적 페이지를 쉽게 만들 수 있도록 도와주는 서비스이다. 두 서비스 역시 블로그 지향적인 서비스이며 Hexo의 경우에는 npm을 통해 쉽게 설치가 가능하고 한 줄의 Command Line을 통해 Github에 바로 배포 할 수 있으며, Jekyll과 마찬가지로 다양한 플러그인과 테마를 지원하고 있다.</p>
+<blockquote>
+<p>개인적으론 Jekyll 보다는 Hexo가 블로그용으론 더 강력하다고 생각됨</p>
+</blockquote>
+<h4 id="설치-전-준비"><a href="#설치-전-준비" class="headerlink" title="설치 전 준비"></a>설치 전 준비</h4><p>Hexo를 이용하기 위해서는 먼저 아래의 구성 요소들이 사전에 설치가 되어 있어야 한다. 이미 설치가 되어 있다면 생략해도 좋다.</p>
+<ul>
+<li><strong>Node.js</strong></li>
+<li><strong>Git</strong></li>
+</ul>
+<h4 id="Hexo-CLI-설치-및-블로그-생성"><a href="#Hexo-CLI-설치-및-블로그-생성" class="headerlink" title="Hexo CLI 설치 및 블로그 생성"></a>Hexo CLI 설치 및 블로그 생성</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-cli -g</span><br><span class="line">$ hexo init blog</span><br><span class="line">$ cd blog</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
+<h4 id="설정파일-업데이트"><a href="#설정파일-업데이트" class="headerlink" title="설정파일 업데이트"></a>설정파일 업데이트</h4><p>Command Line을 통해 Hexo를 설치하고 블로그 생성이 완료가 되면 root 디렉토리에 <code>_config.yml</code> 이라는 설정파일이 생성이 되는데 이 곳에 블로그에 대한 대부분의 설정을 할 수 있다. 설정 값에 대한 자세한 정보는 Hexo의 Document를 통해 확인이 가능하다.</p>
+<ul>
+<li>Documentation - <a href="https://hexo.io/docs/" target="_blank" rel="external">https://hexo.io/docs/</a></li>
+</ul>
+<h4 id="Site-정보"><a href="#Site-정보" class="headerlink" title="Site 정보"></a>Site 정보</h4><p>블로그의 이름과 간략한 소개등을 수정 할 수 있다</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">title: 블로그 타이틀 (브라우저의 탭 타이틀로 표시됨)</span><br><span class="line">subtitle: 블로그 부제</span><br><span class="line">description: 블로그 간단 설명</span><br><span class="line">author: 저자명</span><br></pre></td></tr></table></figure>
+<h4 id="URL-정보"><a href="#URL-정보" class="headerlink" title="URL 정보"></a>URL 정보</h4><p>블로그 URL정보를 설정 할 수 있다</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">url: https://USERNAME.github.io</span><br><span class="line">root: /</span><br><span class="line">permalink: :year/:month/:day/:title/</span><br><span class="line">permalink_defaults:</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>만약 본인의 Custom Domain을 적용하고 싶다면 url값은 이후에 Custom Domain 설정시 CNAME 파일을 생성 할 때도 참조한다.</p>
+</blockquote>
+<h4 id="Github-정보"><a href="#Github-정보" class="headerlink" title="Github 정보"></a>Github 정보</h4><p>자신의 Repository 정보를 입력하면 이후에 손쉽게 배포가 가능하다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Deployment</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https://USERNAME@github.com/USERNAME/USERNAME.github.io</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>위와 같이 설정 후 실제 배포 시에 아래와 같은 에러가 발생하는 경우 추가 플러그인을 설치해야 한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; ERROR Deployer not found: git</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p>hexo-deployer-git 설치</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; npm install hexo-deployer-git --save</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h4 id="로컬에서-테스트"><a href="#로컬에서-테스트" class="headerlink" title="로컬에서 테스트"></a>로컬에서 테스트</h4><p>기본적인 설정이 완료가 되면 아래의 Command Line을 통해 로컬에서 서버를 구동 할 수 있다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>서버가 구동이 되면 아래의 주소를 통해 브라우저에서 블로그에 접속 할 수 있다.</p>
+<ul>
+<li><a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a></li>
+</ul>
+<h2 id="Github에-배포"><a href="#Github에-배포" class="headerlink" title="Github에 배포"></a>Github에 배포</h2><p>로컬에서 정상적으로 블로그에 접속이 되었다면 이미 생성한 Github Page Repository에 손쉽게 배포가 가능하다.</p>
+<p><strong>Hexo 설정을 통해 정적 리소스 생성하기</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p><strong>배포하기</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p><strong>Generate와 Deploy 동시 실행</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy --generate</span><br></pre></td></tr></table></figure>
+<p>배포가 완료가 되면 브라우저에서 USERNAME.github.io로 접속해 정상적으로 배포가 되었는지 확인한다.</p>
+<h4 id="주의사항"><a href="#주의사항" class="headerlink" title="주의사항"></a>주의사항</h4><p>간혹 hexo의 deploy기능을 통해 정상적으로 배포가 되었음에도 불구하고 페이지가 업데이트 되지 않는 현상이 있는데, 이 경우에는 아래와 같이 페이지를 clean후에 배포를 하면 해결된다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo deploy --generate</span><br></pre></td></tr></table></figure>
+<h2 id="테마-적용"><a href="#테마-적용" class="headerlink" title="테마 적용"></a>테마 적용</h2><p>USERNAME.github.io를 통해 성공적으로 블로그 접속이 되었다면, 멋진 디자인을 적용한 테마(Theme)를 적용하고 싶을 것이다. Hexo에서는 아래의 페이지에서 다양한 Theme가 적용된 페이지를 소개하고 있다.</p>
+<blockquote>
+<p><a href="https://hexo.io/themes/" target="_blank" rel="external">https://hexo.io/themes/</a></p>
+</blockquote>
+<p>구체적인 테마 적용 방법은 아래 링크를 참고한다.</p>
+<ul>
+<li><a href="https://simhyejin.github.io/2016/06/24/hexo-themes" target="_blank" rel="external">https://simhyejin.github.io/2016/06/24/hexo-themes</a></li>
+</ul>
+<h2 id="포스트-작성"><a href="#포스트-작성" class="headerlink" title="포스트 작성"></a>포스트 작성</h2><p>아래의 Command Line을 입력하면, root 디렉토리의 <code>source/_posts</code> 폴더에 Markdown 파일이 하나 생성되는데 Hexo에서는 <code>Markdown</code>문서를 통해 포스트를 작성해 나가면 된다.</p>
+<h4 id="새-포스트-만들기"><a href="#새-포스트-만들기" class="headerlink" title="새 포스트 만들기"></a>새 포스트 만들기</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new post [post_name]</span><br></pre></td></tr></table></figure>
+<p><strong>예제</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new post github-page-and-hexo</span><br></pre></td></tr></table></figure>
+<p><strong>아래와 같은 경로에 Markdown 문서가 생성 된다</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ㄴ source</span><br><span class="line">   ㄴ _posts</span><br><span class="line">          - github-page-and-hexo.md</span><br></pre></td></tr></table></figure>
+<p><strong>생성된 Markdown 문서에서 아래와 같이 제목을 수정 할 수 있다</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: Github Page와 Hexo를 통해 30분만에 기술 블로그 만들기</span><br><span class="line">date: 2017-04-16 22:37:53</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a href="https://guides.github.com/features/mastering-markdown/" target="_blank" rel="external">Github Markdown Guide</a></p>
+</blockquote>
+<p>기존 서비스형 블로그와 같이 초안 작성 및 세부 설정과 같은 내용은 아래 링크를 참고한다.</p>
+<ul>
+<li><a href="http://futurecreator.github.io/2016/06/21/hexo-basic-usage" target="_blank" rel="external">http://futurecreator.github.io/2016/06/21/hexo-basic-usage</a></li>
+</ul>
+<h2 id="참고-자료"><a href="#참고-자료" class="headerlink" title="참고 자료"></a>참고 자료</h2><ul>
+<li><a href="https://www.holaxprogramming.com/2017/04/16/github-page-and-hexo/" target="_blank" rel="external">Github Pages와 Hexo를 통해 30분만에 기술 블로그 만들기</a></li>
+<li><a href="http://futurecreator.github.io/2016/06/21/hexo-basic-usage/" target="_blank" rel="external">Hexo 기본 사용법</a></li>
+<li><a href="https://simhyejin.github.io/2016/06/24/hexo-themes/" target="_blank" rel="external">Hexo 테마 적용하기</a></li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="https://indra818.github.io/2017/11/08/github-page-hexo-basic-guide/" data-id="cjkjc4yuw0000c3a6ruxdit8u" class="article-share-link"><i class="fa fa-share"></i>공유하기</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>팔로우:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="twitter" href="https://twitter.com/indra818" target="_blank">
+                        <i class="icon fa fa-twitter"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/indra818" target="_blank">
+                        <i class="icon fa fa-facebook"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="google-plus" href="https://plus.google.com/+%EA%B9%80%EA%B2%BD%EC%A7%840818" target="_blank">
+                        <i class="icon fa fa-google-plus"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://indra818.github.io" target="_blank">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/11/23/thymeleaf-tag-reference/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">새로운</strong>
+        <p class="article-nav-title">
+        
+            Thymeleaf 태그 레퍼런스 (2.1.4 버전 기준)
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">최근 글</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/08/07/jib-maven-plugin-manual/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2018/08/07/jib-maven-plugin-manual/jib-build-docker-java-container-image.png)" alt="Maven Plugin을 활용한 Docker Container 이미지 배포 환경 구성" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/DevOps/">DevOps</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/DevOps/Docker/">Docker</a></p>
+                            <p class="item-title"><a href="/2018/08/07/jib-maven-plugin-manual/" class="title">Maven Plugin을 활용한 Docker Container 이미지 배포 환경 구성</a></p>
+                            <p class="item-date"><time datetime="2018-08-07T06:15:56.000Z" itemprop="datePublished">2018-08-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/11/23/thymeleaf-tag-reference/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2017/11/23/thymeleaf-tag-reference/thymeleaf-logo.png)" alt="Thymeleaf 태그 레퍼런스 (2.1.4 버전 기준)" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Web/">Web</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Web/Spring/">Spring</a></p>
+                            <p class="item-title"><a href="/2017/11/23/thymeleaf-tag-reference/" class="title">Thymeleaf 태그 레퍼런스 (2.1.4 버전 기준)</a></p>
+                            <p class="item-date"><time datetime="2017-11-23T11:40:33.000Z" itemprop="datePublished">2017-11-23</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/11/08/github-page-hexo-basic-guide/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/2017/11/08/github-page-hexo-basic-guide/thumbnail.png)" alt="Github Pages와 Hexo를 이용한 블로그 만들기" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Web/">Web</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Web/Hexo/">Hexo</a></p>
+                            <p class="item-title"><a href="/2017/11/08/github-page-hexo-basic-guide/" class="title">Github Pages와 Hexo를 이용한 블로그 만들기</a></p>
+                            <p class="item-date"><time datetime="2017-11-08T06:15:06.000Z" itemprop="datePublished">2017-11-08</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">카테고리</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/">DevOps</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/Docker/">Docker</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Web/Hexo/">Hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/Spring/">Spring</a><span class="category-list-count">1</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">아카이브</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">8월 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">11월 2017</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">태그</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/blogging/">blogging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/delivery/">delivery</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/devops/">devops</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/">github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jib/">jib</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring-mvc/">spring-mvc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/thymeleaf/">thymeleaf</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">태그 클라우드</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/blogging/" style="font-size: 10px;">blogging</a> <a href="/tags/delivery/" style="font-size: 10px;">delivery</a> <a href="/tags/devops/" style="font-size: 10px;">devops</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/jib/" style="font-size: 10px;">jib</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/spring-mvc/" style="font-size: 10px;">spring-mvc</a> <a href="/tags/thymeleaf/" style="font-size: 10px;">thymeleaf</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">링크</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2018 Kyeongjin Kim</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_shortname = 'indra818';
+    
+    
+    var disqus_url = 'https://indra818.github.io/2017/11/08/github-page-hexo-basic-guide/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
