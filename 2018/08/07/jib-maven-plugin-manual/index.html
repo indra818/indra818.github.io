@@ -7,28 +7,28 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="jib,maven,docker,delivery,devops" />
+        <meta name="keywords" content="jib,maven,docker,delivery,devops">
     
-    <meta name="description" content="본 문서는 Google Container Tools 에서 제공하는 메이븐 플러그인 중 Jib 을 활용하여 각 프로젝트별 Docker 이미지를 메이블으로 생성 및 배포하는 환경 구축에 대해 기술한다.     배포 환경별 설정 및 구성 Amazon ECR Private Docker Registry on Nexus   POM 파일 내에 플러그인 설정 내용 추가">
+    <meta name="description" content="본 문서는 Google Container Tools 에서 제공하는 메이븐 플러그인 중 Jib 을 활용하여 각 프로젝트별 Docker 이미지를 메이블으로 생성 및 배포하는 환경 구축에 대해 기술한다.    배포 환경별 설정 및 구성  Amazon ECR Private Docker Registry on Nexus   POM 파일 내에 플러그인 설정 내용 추가">
 <meta name="keywords" content="jib,maven,docker,delivery,devops">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Maven Plugin을 활용한 Docker Container 이미지 배포 환경 구성">
 <meta property="og:url" content="https://indra818.github.io/2018/08/07/jib-maven-plugin-manual/index.html">
 <meta property="og:site_name" content="DEVPOOL">
-<meta property="og:description" content="본 문서는 Google Container Tools 에서 제공하는 메이븐 플러그인 중 Jib 을 활용하여 각 프로젝트별 Docker 이미지를 메이블으로 생성 및 배포하는 환경 구축에 대해 기술한다.     배포 환경별 설정 및 구성 Amazon ECR Private Docker Registry on Nexus   POM 파일 내에 플러그인 설정 내용 추가">
+<meta property="og:description" content="본 문서는 Google Container Tools 에서 제공하는 메이븐 플러그인 중 Jib 을 활용하여 각 프로젝트별 Docker 이미지를 메이블으로 생성 및 배포하는 환경 구축에 대해 기술한다.    배포 환경별 설정 및 구성  Amazon ECR Private Docker Registry on Nexus   POM 파일 내에 플러그인 설정 내용 추가">
 <meta property="og:locale" content="ko">
 <meta property="og:image" content="https://indra818.github.io/2018/08/07/jib-maven-plugin-manual/jib-build-docker-java-container-image.png">
 <meta property="og:updated_time" content="2018-08-14T02:53:33.871Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Maven Plugin을 활용한 Docker Container 이미지 배포 환경 구성">
-<meta name="twitter:description" content="본 문서는 Google Container Tools 에서 제공하는 메이븐 플러그인 중 Jib 을 활용하여 각 프로젝트별 Docker 이미지를 메이블으로 생성 및 배포하는 환경 구축에 대해 기술한다.     배포 환경별 설정 및 구성 Amazon ECR Private Docker Registry on Nexus   POM 파일 내에 플러그인 설정 내용 추가">
+<meta name="twitter:description" content="본 문서는 Google Container Tools 에서 제공하는 메이븐 플러그인 중 Jib 을 활용하여 각 프로젝트별 Docker 이미지를 메이블으로 생성 및 배포하는 환경 구축에 대해 기술한다.    배포 환경별 설정 및 구성  Amazon ECR Private Docker Registry on Nexus   POM 파일 내에 플러그인 설정 내용 추가">
 <meta name="twitter:image" content="https://indra818.github.io/2018/08/07/jib-maven-plugin-manual/jib-build-docker-java-container-image.png">
     
-
+    <link rel="canonical" href="https://indra818.github.io/2018/08/07/jib-maven-plugin-manual/">
     
 
     
-        <link rel="icon" href="/favicon.png" />
+        <link rel="icon" href="/favicon.png">
     
 
     <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
@@ -36,6 +36,25 @@
     <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
 
     <link rel="stylesheet" href="/css/style.css">
+
+    <style type="text/css">
+        #toTop {
+            display: none;
+            cursor: pointer;
+            text-align: center;
+            width: 60px;
+            height: 60px;
+            color: #000;
+            font-size: 50px;
+            line-height: 55px;
+            background: #fff;
+            opacity: 0.85;
+            -webkit-border-radius: 4px;
+            border-radius: 4px;
+            bottom: 20px;
+            position: fixed;
+        }
+    </style>
 
     <script src="/libs/jquery/2.0.3/jquery.min.js"></script>
     
@@ -50,7 +69,7 @@
 
 
 </head>
-
+</html>
 <body>
     <div id="wrap">
         <header id="header">
@@ -72,14 +91,14 @@
                     <div class="nav-container-inner">
                         <ul id="main-nav">
                             
-                                <li class="main-nav-list-item" >
+                                <li class="main-nav-list-item">
                                     <a class="main-nav-list-link" href="/">홈</a>
                                 </li>
                             
                                         <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevOps/">DevOps</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DevOps/Docker/">Docker</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Web/">Web</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Web/Hexo/">Hexo</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Web/Spring/">Spring</a></li></ul></li></ul>
                                     
-                                <li class="main-nav-list-item" >
-                                    <a class="main-nav-list-link" href="https://www.linkedin.com/in/indra818">About</a>
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="https://www.linkedin.com/in/indra818" rel="external nofollow noopener noreferrer" target="_blank">About</a>
                                 </li>
                             
                         </ul>
@@ -87,14 +106,14 @@
                             <div id="search-form-wrap">
 
     <form class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="검색" />
+        <input type="text" class="ins-search-input search-form-input" placeholder="검색">
         <button type="submit" class="search-form-submit"></button>
     </form>
     <div class="ins-search">
     <div class="ins-search-mask"></div>
     <div class="ins-search-container">
         <div class="ins-input-wrapper">
-            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <input type="text" class="ins-search-input" placeholder="Type something...">
             <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="ins-section-wrapper">
@@ -139,7 +158,7 @@
     </h1>
 </div>
                         <div class="main-body-content">
-                            <article id="post-jib-maven-plugin-manual" class="article article-single article-type-post" itemscope itemprop="blogPost">
+                            <article id="post-jib-maven-plugin-manual" class="article article-single article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
@@ -172,12 +191,12 @@
         
         <div class="article-entry" itemprop="articleBody">
             <img src="/2018/08/07/jib-maven-plugin-manual/jib-build-docker-java-container-image.png" title="Jib">
-<p>본 문서는 Google Container Tools 에서 제공하는 메이븐 플러그인 중 <a href="https://github.com/GoogleContainerTools/jib/tree/master/jib-maven-plugin" target="_blank" rel="noopener">Jib</a> 을 활용하여 각 프로젝트별 Docker 이미지를 메이블으로 생성 및 배포하는 환경 구축에 대해 기술한다.</p>
+<p>본 문서는 Google Container Tools 에서 제공하는 메이븐 플러그인 중 <a href="https://github.com/GoogleContainerTools/jib/tree/master/jib-maven-plugin" rel="external nofollow noopener noreferrer" target="_blank">Jib</a> 을 활용하여 각 프로젝트별 Docker 이미지를 메이블으로 생성 및 배포하는 환경 구축에 대해 기술한다.</p>
 <div class="toc">
-
 <!-- toc -->
 <ul>
-<li><a href="#baepo-hwangyeongbyeol-seoljeong-mic-guseong">배포 환경별 설정 및 구성</a><ul>
+<li><a href="#baepo-hwangyeongbyeol-seoljeong-mic-guseong">배포 환경별 설정 및 구성</a>
+<ul>
 <li><a href="#amazon-ecr">Amazon ECR</a></li>
 <li><a href="#private-docker-registry-on-nexus">Private Docker Registry on Nexus</a></li>
 </ul>
@@ -187,44 +206,55 @@
 </ul>
 <!-- tocstop -->
 </div>
-
 <p>대상으로 하는 클라우드 환경은 AWS와 Nexus를 활용한 자체 구축 Private Docker Registry이다.</p>
-<h2><span id="baepo-hwangyeongbyeol-seoljeong-mic-guseong">배포 환경별 설정 및 구성</span></h2><h3><span id="amazon-ecr">Amazon ECR</span></h3><h4><span id="aws-cli-seolci-mic-guseong">AWS CLI 설치 및 구성</span></h4><h5><span id="aws-cli-seolci">AWS CLI 설치</span></h5><ul>
-<li><p>Windows 환경</p>
-<p>AWS에서 제공하는 <a href="https://docs.aws.amazon.com/ko_kr/cli/latest/userguide/awscli-install-windows.html#install-msi-on-windows" target="_blank" rel="noopener">MSI 설치 관리자</a> 페이지에서 본인 환경에 맞는 MSI 설치 파일을 다운 받아 설치 후 해당 페이지에서 안내하는 가이드라인을 따른다.</p>
+<h2><span id="baepo-hwangyeongbyeol-seoljeong-mic-guseong">배포 환경별 설정 및 구성</span></h2>
+<h3><span id="amazon-ecr">Amazon ECR</span></h3>
+<h4><span id="aws-cli-seolci-mic-guseong">AWS CLI 설치 및 구성</span></h4>
+<h5><span id="aws-cli-seolci">AWS CLI 설치</span></h5>
+<ul>
+<li>
+<p>Windows 환경</p>
+<p>AWS에서 제공하는 <a href="https://docs.aws.amazon.com/ko_kr/cli/latest/userguide/awscli-install-windows.html#install-msi-on-windows" rel="external nofollow noopener noreferrer" target="_blank">MSI 설치 관리자</a> 페이지에서 본인 환경에 맞는 MSI 설치 파일을 다운 받아 설치 후 해당 페이지에서 안내하는 가이드라인을 따른다.</p>
 </li>
-<li><p>Unix (Linux or macOS) 환경</p>
+<li>
+<p>Unix (Linux or macOS) 환경</p>
 <ol>
-<li><p>터미널에서 아래 명령을 실행하여 설치 스크립트를 다운로드</p>
+<li>
+<p>터미널에서 아래 명령을 실행하여 설치 스크립트를 다운로드</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"</span><br><span class="line">sudo python get-pip.py</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>Pip를 사용하여 AWS CLI를 설치</p>
+<li>
+<p>Pip를 사용하여 AWS CLI를 설치</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install awscli</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>정상 설치 여부 확인</p>
+<li>
+<p>정상 설치 여부 확인</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws help</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <blockquote>
 <p>AWS CLI 설치를 위해서는 Python 2.6.5 버전 이상이 필요하며 macOS의 경우 pip를 사용한 설치가 안 될 수도 있다. 이 경우 아래 링크를 참조하여 수동 설치하도록 한다.</p>
-<p><a href="https://docs.aws.amazon.com/ko_kr/cli/latest/userguide/cli-install-macos.html" target="_blank" rel="noopener">macOS에서 AWS Command Line Interface 설치</a></p>
+<p><a href="https://docs.aws.amazon.com/ko_kr/cli/latest/userguide/cli-install-macos.html" rel="external nofollow noopener noreferrer" target="_blank">macOS에서 AWS Command Line Interface 설치</a></p>
 </blockquote>
 </li>
 </ul>
-<h5><span id="aws-cli-guseong">AWS CLI 구성</span></h5><p>터미널 또는 CMD 화면에서 아래 명령을 실행한다. 아래 명령은 기본 설정이 변경되지 않는 한 최초 1회만 필요하다.</p>
+<h5><span id="aws-cli-guseong">AWS CLI 구성</span></h5>
+<p>터미널 또는 CMD 화면에서 아래 명령을 실행한다. 아래 명령은 기본 설정이 변경되지 않는 한 최초 1회만 필요하다.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">aws configure</span><br><span class="line">AWS Access Key ID [None]: [AWS로부터 발급 받은 액세스 키 입력]</span><br><span class="line">AWS Secret Access Key [None]: [AWS로부터 발급 받은 시크릿 액세스 키 입력]</span><br><span class="line">Default region name [None]: ap-northeast-2</span><br><span class="line">Default output format [None]: json</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>AWS Access Key와 Secret Access Key에 대해서는 아래 링크를 참조한다.</p>
 <ul>
-<li><a href="https://docs.aws.amazon.com/ko_kr/general/latest/gr/managing-aws-access-keys.html" target="_blank" rel="noopener">AWS 계정에 대한 액세스 키 관리</a></li>
-<li><a href="http://wildpup.cafe24.com/archives/929" target="_blank" rel="noopener">AWS Access Key와 Secret Key를 만들고 CLI 사용해보기</a></li>
+<li><a href="https://docs.aws.amazon.com/ko_kr/general/latest/gr/managing-aws-access-keys.html" rel="external nofollow noopener noreferrer" target="_blank">AWS 계정에 대한 액세스 키 관리</a></li>
+<li><a href="http://wildpup.cafe24.com/archives/929" rel="external nofollow noopener noreferrer" target="_blank">AWS Access Key와 Secret Key를 만들고 CLI 사용해보기</a></li>
 </ul>
 </blockquote>
-<h4><span id="amazon-ecr-docker-credential-helper-seolci-mic-guseong">Amazon ECR Docker Credential Helper 설치 및 구성</span></h4><p>Amazon ECR Docker Credential Helper는 Docker 이미지를 Amazon Elastic Container Registry (이하 ECR)에 손쉽게 배포하기 위해 AWS에서 만든 툴로써 AWS 인증 처리와 이미지 배포를 담당한다.</p>
+<h4><span id="amazon-ecr-docker-credential-helper-seolci-mic-guseong">Amazon ECR Docker Credential Helper 설치 및 구성</span></h4>
+<p>Amazon ECR Docker Credential Helper는 Docker 이미지를 Amazon Elastic Container Registry (이하 ECR)에 손쉽게 배포하기 위해 AWS에서 만든 툴로써 AWS 인증 처리와 이미지 배포를 담당한다.</p>
 <blockquote>
-<p><a href="https://github.com/awslabs/amazon-ecr-credential-helper" target="_blank" rel="noopener">https://github.com/awslabs/amazon-ecr-credential-helper</a></p>
+<p><a href="https://github.com/awslabs/amazon-ecr-credential-helper" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/awslabs/amazon-ecr-credential-helper</a></p>
 </blockquote>
-<h5><span id="seolci">설치</span></h5><p>설치를 위해서는 go 언어 1.6버전 이상이 시스템에 설치되어 있어야 하며, <code>git</code> 및 <code>make</code> 모듈도 설치되어 있어야 한다.</p>
+<h5><span id="seolci">설치</span></h5>
+<p>설치를 위해서는 go 언어 1.6버전 이상이 시스템에 설치되어 있어야 하며, <code>git</code> 및 <code>make</code> 모듈도 설치되어 있어야 한다.</p>
 <p>위 환경이 갖추어진 상태라면 터미널 창에서 아래 명령어를 실행하여 모듈 소스코드를 다운로드한다.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get -u github.com/awslabs/amazon-ecr-credential-helper/ecr-login/cli/docker-credential-ecr-login</span><br></pre></td></tr></table></figure>
 <p>다운로드를 완료 한 후 아래 경로로 이동하여 make 명령을 실행한다.</p>
@@ -233,43 +263,53 @@
 <p>위 명령은 macOS에서 실행한 경우이고 시스템 및 사용자 환경에 따라 상이할 수 있다.</p>
 </blockquote>
 <p>빌드를 완료한 후 생성된 <strong>바이너리 파일의 경로를 시스템 환경변수의 PATH 설정에 추가하여 어느 경로에서도 실행 가능하도록 구성</strong>한다.</p>
-<h5><span id="hwangyeongseoljeong">환경설정</span></h5><p>Docker 환경설정 파일(<code>~/.docker/config.json</code>)에 아래 내용을 추가 후 Docker를 재기동한다.</p>
+<h5><span id="hwangyeongseoljeong">환경설정</span></h5>
+<p>Docker 환경설정 파일(<code>~/.docker/config.json</code>)에 아래 내용을 추가 후 Docker를 재기동한다.</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"credsStore"</span> : <span class="string">"ecr-login"</span>,</span><br><span class="line">    <span class="attr">"credHelpers"</span> : &#123;</span><br><span class="line">        <span class="attr">"&#123;ECR 식별 번호&#125;.dkr.ecr.ap-northeast-2.amazonaws.com"</span>: <span class="string">"ecr-login"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5><span id="gwanryeon-camjomunseo">관련 참조문서</span></h5><ul>
-<li><a href="https://github.com/awslabs/amazon-ecr-credential-helper" target="_blank" rel="noopener">https://github.com/awslabs/amazon-ecr-credential-helper</a></li>
-<li><a href="https://aws.amazon.com/ko/blogs/compute/authenticating-amazon-ecr-repositories-for-docker-cli-with-credential-helper/" target="_blank" rel="noopener">https://aws.amazon.com/ko/blogs/compute/authenticating-amazon-ecr-repositories-for-docker-cli-with-credential-helper/</a></li>
+<h5><span id="gwanryeon-camjomunseo">관련 참조문서</span></h5>
+<ul>
+<li><a href="https://github.com/awslabs/amazon-ecr-credential-helper" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/awslabs/amazon-ecr-credential-helper</a></li>
+<li><a href="https://aws.amazon.com/ko/blogs/compute/authenticating-amazon-ecr-repositories-for-docker-cli-with-credential-helper/" rel="external nofollow noopener noreferrer" target="_blank">https://aws.amazon.com/ko/blogs/compute/authenticating-amazon-ecr-repositories-for-docker-cli-with-credential-helper/</a></li>
 </ul>
-<h3><span id="private-docker-registry-on-nexus">Private Docker Registry on Nexus</span></h3><h4><span id="maven-setting-pail-nae-seobeo-injeungjeongbo-cuga">Maven Setting 파일 내 서버 인증정보 추가</span></h4><p><a href="http://teddykwon.com/2017/01/12/docker-nexus-docker-registry.html" target="_blank" rel="noopener">NEXUS 서버를 이용해 구축한 Private Docker Registry</a>의 경우 HTTPS를 지원하지 않고 있으므로 Maven 환경설정 파일(<code>settings.xml</code>)에 서버 인증정보를 아래와 같이 추가하여 플러그인 사용 시 인증정보를 사용할 수 있도록 설정한다.</p>
+<h3><span id="private-docker-registry-on-nexus">Private Docker Registry on Nexus</span></h3>
+<h4><span id="maven-setting-pail-nae-seobeo-injeungjeongbo-cuga">Maven Setting 파일 내 서버 인증정보 추가</span></h4>
+<p><a href="http://teddykwon.com/2017/01/12/docker-nexus-docker-registry.html" rel="external nofollow noopener noreferrer" target="_blank">NEXUS 서버를 이용해 구축한 Private Docker Registry</a>의 경우 HTTPS를 지원하지 않고 있으므로 Maven 환경설정 파일(<code>settings.xml</code>)에 서버 인증정보를 아래와 같이 추가하여 플러그인 사용 시 인증정보를 사용할 수 있도록 설정한다.</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="tag">&lt;<span class="name">servers</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">id</span>&gt;</span>img.example.com:12000<span class="tag">&lt;/<span class="name">id</span>&gt;</span>   <span class="comment">&lt;!-- 식별자는 서버 URL로 설정 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span>       <span class="comment">&lt;!-- 로그인 아이디 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">password</span>&gt;</span>test!@<span class="tag">&lt;/<span class="name">password</span>&gt;</span>      <span class="comment">&lt;!-- 패스워드 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">servers</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>플러그인 메뉴얼 페이지에서는 적절한 docker credential helper가 없을 경우 사용하도록 권고하고 있으며, setting.xml 파일에 인증정보를 그대로 노출할 경우 보안에 취약할 수 있으므로 주의해야 한다.</p>
 </blockquote>
-<h4><span id="docker-daemon-seoljeonge-insecure-registry-jeongbo-deungrog">Docker Daemon 설정에 insecure registry 정보 등록</span></h4><p>macOS는 <a href="https://docs.docker.com/docker-for-mac/install/#install-and-run-docker-for-mac" target="_blank" rel="noopener">Docker 공식 설치 가이드 라인</a>에 따라 설치한 경우 아래 링크에 첨부된 스크린샷을 참고하여 insecure registry 정보 등록을 완료한다.</p>
+<h4><span id="docker-daemon-seoljeonge-insecure-registry-jeongbo-deungrog">Docker Daemon 설정에 insecure registry 정보 등록</span></h4>
+<p>macOS는 <a href="https://docs.docker.com/docker-for-mac/install/#install-and-run-docker-for-mac" rel="external nofollow noopener noreferrer" target="_blank">Docker 공식 설치 가이드 라인</a>에 따라 설치한 경우 아래 링크에 첨부된 스크린샷을 참고하여 insecure registry 정보 등록을 완료한다.</p>
 <ul>
-<li><a href="https://stackoverflow.com/a/39492340" target="_blank" rel="noopener">https://stackoverflow.com/a/39492340</a></li>
+<li><a href="https://stackoverflow.com/a/39492340" rel="external nofollow noopener noreferrer" target="_blank">https://stackoverflow.com/a/39492340</a></li>
 </ul>
 <p>다른 OS의 경우에는 아래 링크를 참고한다.</p>
 <ul>
-<li><a href="https://docs.docker.com/registry/insecure/" target="_blank" rel="noopener">Test an insecure registry</a></li>
-<li><a href="https://github.com/Juniper/contrail-docker/wiki/Configure-docker-service-to-use-insecure-registry" target="_blank" rel="noopener">Configure docker service to use insecure registry</a></li>
+<li><a href="https://docs.docker.com/registry/insecure/" rel="external nofollow noopener noreferrer" target="_blank">Test an insecure registry</a></li>
+<li><a href="https://github.com/Juniper/contrail-docker/wiki/Configure-docker-service-to-use-insecure-registry" rel="external nofollow noopener noreferrer" target="_blank">Configure docker service to use insecure registry</a></li>
 </ul>
-<h4><span id="meibeun-keomaendeu-silhaeng-si-httpsonly-obsyeon-bihwalseonghwa">메이븐 커맨드 실행 시 HttpsOnly 옵션 비활성화</span></h4><p><code>jib-maven-plugin</code> 사용 시 대상 Docker Registry가 HTTPS를 지원하지 않을 경우, 플러그인 명령 실행 시 아래와 같이 <code>sendCredentialsOverHttp</code> 옵션을 <code>true</code>로 하여 실행해야 한다.</p>
+<h4><span id="meibeun-keomaendeu-silhaeng-si-httpsonly-obsyeon-bihwalseonghwa">메이븐 커맨드 실행 시 HttpsOnly 옵션 비활성화</span></h4>
+<p><code>jib-maven-plugin</code> 사용 시 대상 Docker Registry가 HTTPS를 지원하지 않을 경우, 플러그인 명령 실행 시 아래와 같이 <code>sendCredentialsOverHttp</code> 옵션을 <code>true</code>로 하여 실행해야 한다.</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile jib:build -DsendCredentialsOverHttp=true</span><br></pre></td></tr></table></figure>
-<h2><span id="pom-pail-naee-peulreogeuin-seoljeong-naeyong-cuga">POM 파일 내에 플러그인 설정 내용 추가</span></h2><p>플러그인 사용을 위한 모든 환경 설정을 마친 후 Docker 이미지로 생성 및 배포할 프로젝트의 pom.xml 파일에 아래와 같이 플러그인 사용 설정을 추가한다.</p>
+<h2><span id="pom-pail-naee-peulreogeuin-seoljeong-naeyong-cuga">POM 파일 내에 플러그인 설정 내용 추가</span></h2>
+<p>플러그인 사용을 위한 모든 환경 설정을 마친 후 Docker 이미지로 생성 및 배포할 프로젝트의 pom.xml 파일에 아래와 같이 플러그인 사용 설정을 추가한다.</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">      ...</span><br><span class="line">      <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.google.cloud.tools<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jib-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.9.7<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">to</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">image</span>&gt;</span>myimage<span class="tag">&lt;/<span class="name">image</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">to</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">      ...</span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>배포 환경에 따라 위 내용 중 configuration 노드의 내용을 달리한다.</p>
-<h5><span id="aws">AWS</span></h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">to</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">image</span>&gt;</span>&#123;ECR 식별 번호&#125;.dkr.ecr.ap-northeast-2.amazonaws.com/[Repo 명]:[태그명]<span class="tag">&lt;/<span class="name">image</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">to</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h5><span id="private-docker-registry">Private Docker Registry</span></h5><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">to</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">image</span>&gt;</span>img.example.com:12000/[이미지 명칭]:[태그명]<span class="tag">&lt;/<span class="name">image</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">to</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">allowInsecureRegistries</span>&gt;</span>true<span class="tag">&lt;/<span class="name">allowInsecureRegistries</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2><span id="maven-profile-byeol-seoljeong">Maven Profile 별 설정</span></h2><p>배포 상황에 맞게 이미지 생성 및 배포를 쉽게 하기 위해서 Maven Profile을 아래와 같이 추가 후 플러그인 설정부 역시 변경한다.</p>
+<h5><span id="aws">AWS</span></h5>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">to</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">image</span>&gt;</span>&#123;ECR 식별 번호&#125;.dkr.ecr.ap-northeast-2.amazonaws.com/[Repo 명]:[태그명]<span class="tag">&lt;/<span class="name">image</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">to</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5><span id="private-docker-registry">Private Docker Registry</span></h5>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">to</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">image</span>&gt;</span>img.example.com:12000/[이미지 명칭]:[태그명]<span class="tag">&lt;/<span class="name">image</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">to</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">allowInsecureRegistries</span>&gt;</span>true<span class="tag">&lt;/<span class="name">allowInsecureRegistries</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2><span id="maven-profile-byeol-seoljeong">Maven Profile 별 설정</span></h2>
+<p>배포 상황에 맞게 이미지 생성 및 배포를 쉽게 하기 위해서 Maven Profile을 아래와 같이 추가 후 플러그인 설정부 역시 변경한다.</p>
 <p><strong>Maven Profile 추가</strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line">	<span class="tag">&lt;<span class="name">profiles</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">id</span>&gt;</span>local<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">activation</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">activeByDefault</span>&gt;</span>true<span class="tag">&lt;/<span class="name">activeByDefault</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">activation</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">docker.repository</span>&gt;</span>img.example.com:12000/$&#123;project.artifactId&#125;:$&#123;deploy.tag.name&#125;<span class="tag">&lt;/<span class="name">docker.repository</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">docker.allow.insecure</span>&gt;</span>true<span class="tag">&lt;/<span class="name">docker.allow.insecure</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">id</span>&gt;</span>local-dev<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">docker.repository</span>&gt;</span>img.example.com:12000/$&#123;project.artifactId&#125;:$&#123;deploy.tag.name&#125;<span class="tag">&lt;/<span class="name">docker.repository</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">docker.allow.insecure</span>&gt;</span>true<span class="tag">&lt;/<span class="name">docker.allow.insecure</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">id</span>&gt;</span>aws<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">docker.repository</span>&gt;</span>&#123;ECR 식별 번호&#125;.dkr.ecr.ap-northeast-2.amazonaws.com/$&#123;project.artifactId&#125;:$&#123;deploy.tag.name&#125;<span class="tag">&lt;/<span class="name">docker.repository</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">docker.allow.insecure</span>&gt;</span>false<span class="tag">&lt;/<span class="name">docker.allow.insecure</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">profiles</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>위 내용중 ${deploy.tag.name}은 또 다른 메이븐 플러그인인 Git 플러그인으로 Git 레포지토리로 부터 tag명 및 커밋 메세지 등 다양한 정보를 취득할 수 있다. 관련 정보 및 사용법은 아래 링크를 참고한다.</p>
+<p>위 내용중 ${<a href="http://deploy.tag.name" rel="external nofollow noopener noreferrer" target="_blank">deploy.tag.name</a>}은 또 다른 메이븐 플러그인인 Git 플러그인으로 Git 레포지토리로 부터 tag명 및 커밋 메세지 등 다양한 정보를 취득할 수 있다. 관련 정보 및 사용법은 아래 링크를 참고한다.</p>
 <ul>
-<li><a href="https://github.com/ktoso/maven-git-commit-id-plugin" target="_blank" rel="noopener">https://github.com/ktoso/maven-git-commit-id-plugin</a></li>
+<li><a href="https://github.com/ktoso/maven-git-commit-id-plugin" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/ktoso/maven-git-commit-id-plugin</a></li>
 </ul>
 </blockquote>
-<p> <strong>플러그인 설정 수정</strong></p>
+<p><strong>플러그인 설정 수정</strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">to</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">image</span>&gt;</span>$&#123;docker.repository&#125;<span class="tag">&lt;/<span class="name">image</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">to</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">allowInsecureRegistries</span>&gt;</span><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">to</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">image</span>&gt;</span>img.example.com:12000/[이미지 명칭]:[태그명]<span class="tag">&lt;/<span class="name">image</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">to</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">allowInsecureRegistries</span>&gt;</span>true<span class="tag">&lt;/<span class="name">allowInsecureRegistries</span>&gt;</span></span><br><span class="line">&lt;/configuration&lt;/allowInsecureRegistries&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span></span></span><br></pre></td></tr></table></figure>
 
         </div>
@@ -278,7 +318,7 @@
 
 
 
-    <a data-url="https://indra818.github.io/2018/08/07/jib-maven-plugin-manual/" data-id="cjkt69pno00040ba6gqlgy056" class="article-share-link"><i class="fa fa-share"></i>공유하기</a>
+    <a data-url="https://indra818.github.io/2018/08/07/jib-maven-plugin-manual/" data-id="cjkt8yity000475a64z1ff2my" class="article-share-link"><i class="fa fa-share"></i>공유하기</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -363,7 +403,7 @@
             
                 
                 <li>
-                    <a class="social-tooltip" title="twitter" href="https://twitter.com/indra818" target="_blank">
+                    <a class="social-tooltip" title="twitter" href="https://twitter.com/indra818" target="_blank" rel="external nofollow noopener noreferrer">
                         <i class="icon fa fa-twitter"></i>
                     </a>
                 </li>
@@ -371,7 +411,7 @@
             
                 
                 <li>
-                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/indra818" target="_blank">
+                    <a class="social-tooltip" title="facebook" href="https://www.facebook.com/indra818" target="_blank" rel="external nofollow noopener noreferrer">
                         <i class="icon fa fa-facebook"></i>
                     </a>
                 </li>
@@ -379,7 +419,7 @@
             
                 
                 <li>
-                    <a class="social-tooltip" title="google-plus" href="https://plus.google.com/+%EA%B9%80%EA%B2%BD%EC%A7%840818" target="_blank">
+                    <a class="social-tooltip" title="google-plus" href="https://plus.google.com/+%EA%B9%80%EA%B2%BD%EC%A7%840818" target="_blank" rel="external nofollow noopener noreferrer">
                         <i class="icon fa fa-google-plus"></i>
                     </a>
                 </li>
@@ -530,7 +570,7 @@
             <ul>
                 
                     <li>
-                        <a href="http://hexo.io">Hexo</a>
+                        <a href="http://hexo.io" rel="external nofollow noopener noreferrer" target="_blank">Hexo</a>
                     </li>
                 
             </ul>
@@ -545,7 +585,28 @@
                 </div>
             </div>
         </div>
-        <footer id="footer">
+        <div id="toTop" class="fa fa-angle-up"></div>
+<script type="text/javascript">
+    $(function() {
+        // 보이기 | 숨기기
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 500) { //250 넘으면 버튼이 보여짐니다.
+                $('#toTop').fadeIn('slow');
+                $('#toTop').css('left', $('#sidebar').offset().left);  // #sidebar left:0 죄표
+            } else {
+                $('#toTop').fadeOut();
+            }
+        });
+        // 버튼 클릭시
+        $("#toTop").click(function() {   
+            $('html, body').animate({
+                scrollTop : 0    // 0 까지 animation 이동합니다.
+            }, 400);          // 속도 400
+            return false;
+       });
+     });
+</script>
+<footer id="footer">
     <div class="container">
         <div class="container-inner">
             <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
@@ -602,4 +663,4 @@
 
     </div>
 </body>
-</html>
+
